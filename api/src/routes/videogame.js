@@ -1,4 +1,4 @@
-const { default: axios } = require("axios");
+const axios = require("axios");
 const Router = require("express");
 const router = Router();
 const { Videogame, Genre } = require("../db");
@@ -63,12 +63,13 @@ router.get("/:idVideogame", async (req, res) => {
         background_image,
         rating,
         released,
-        platforms: platforms.map((p) => p.name),
+        platforms: platforms.map((p) => p.platform.name),
         genres: genres.map((g) => g.name),
-      }
+      };
+      return res.status(200).json(gameInfo);
     }
   } catch (error) {
-    res.status(404).send("Game not found");
+    return res.status(404).send("Game not found");
   }
 });
 
